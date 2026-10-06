@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#f5f5f7">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Projeto Rio">
+<link rel="manifest" href="manifest.webmanifest">
+<title>Projeto Rio • Dudu</title>
+<style>
+:root{--bg:#f5f5f7;--card:rgba(255,255,255,.88);--ink:#111113;--muted:#737378;--line:#dedee3;--accent:#111113;--soft:#ececf0;--green:#2f7d57;--blue:#3977d9;--orange:#b56a18;--shadow:0 10px 30px rgba(0,0,0,.055)}
+*{box-sizing:border-box}html{background:var(--bg)}body{margin:0;background:linear-gradient(#f7f7f9,#f2f2f4);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"SF Pro Display","SF Pro Text","Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}
+.app{max-width:560px;margin:auto;min-height:100vh;padding-bottom:104px}
+header{padding:18px 20px 12px;position:sticky;top:0;z-index:10;background:rgba(247,247,249,.82);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px)}
+.kicker{font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);font-weight:700}
+h1{font-size:34px;line-height:1.05;margin:5px 0 3px;letter-spacing:-.045em}.date{font-size:13px;color:var(--muted)}
+main{padding:0 16px}.section{margin:15px 0}.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.card{background:var(--card);border:1px solid rgba(0,0,0,.055);border-radius:24px;padding:17px;box-shadow:var(--shadow);backdrop-filter:blur(15px)}
+.big{grid-column:1/-1}.label{font-size:12px;color:var(--muted)}.metric{font-size:28px;font-weight:800;letter-spacing:-.04em;margin:4px 0}.submetric{font-size:13px;color:var(--muted)}
+.progress{height:7px;background:var(--soft);border-radius:99px;overflow:hidden;margin:10px 0 8px}.bar{height:100%;background:var(--ink);border-radius:99px;transition:width .35s ease}
+button{border:0;border-radius:15px;background:var(--ink);color:white;padding:11px 14px;font-weight:700;font-size:14px;min-height:44px}button.secondary{background:var(--soft);color:var(--ink)}button:active{transform:scale(.98)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:12px}.pill{display:inline-block;background:var(--soft);border-radius:99px;padding:6px 10px;font-size:11px;font-weight:700}
+.ring{width:116px;height:116px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--ink) var(--pct),var(--soft) 0);position:relative;flex:0 0 auto}.ring:after{content:"";position:absolute;inset:9px;border-radius:50%;background:#fff}.ring>div{position:relative;z-index:1;text-align:center}.ring strong{display:block;font-size:27px;letter-spacing:-.05em}.ring small{color:var(--muted);font-size:10px}
+.item{display:flex;gap:12px;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}.item:last-child{border-bottom:0}.ico{width:42px;height:42px;border-radius:14px;background:var(--soft);display:grid;place-items:center;font-size:20px;flex:0 0 auto}.item strong{font-size:14px}.item small{display:block;color:var(--muted);margin-top:3px;font-size:12px;line-height:1.35}.check{margin-left:auto;width:30px;height:30px;min-height:30px;padding:0;border:1px solid #c8c8ce;border-radius:10px;background:white;color:transparent;display:grid;place-items:center}.check.done{background:var(--ink);color:white;border-color:var(--ink)}
+.chart{width:100%;height:180px}.chart svg{width:100%;height:100%;overflow:visible}.chart .gridline{stroke:#e3e3e7;stroke-width:1}.chart .line{fill:none;stroke:var(--ink);stroke-width:3;stroke-linecap:round;stroke-linejoin:round}.chart .dot{fill:var(--ink)}.chart text{font-family:inherit;fill:var(--muted);font-size:10px}
+.statgrid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}.stat{background:var(--soft);border-radius:16px;padding:12px}.stat b{font-size:18px;display:block}.stat span{font-size:10px;color:var(--muted)}
+.meal{display:flex;align-items:flex-start;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}.meal:last-child{border-bottom:0}.meal .ico{margin-top:1px}
+.workoutday{background:var(--soft);border-radius:18px;padding:13px;margin:9px 0}.workoutday b{display:block}.exercise{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid rgba(0,0,0,.08);font-size:13px}.exercise:last-child{border-bottom:0}.exercise span{color:var(--muted);text-align:right}
+.timeline{display:flex;gap:6px;overflow:auto;padding:3px 0 8px;scrollbar-width:none}.timeline::-webkit-scrollbar{display:none}.day{min-width:48px;text-align:center;background:var(--soft);border-radius:13px;padding:8px 4px;font-size:10px}.day b{display:block;font-size:14px;margin-top:2px}.day.active{background:var(--ink);color:white}.day.done{outline:2px solid rgba(47,125,87,.35)}
+.note{font-size:12px;line-height:1.5;color:var(--muted)}input{width:100%;padding:12px 13px;border:1px solid var(--line);border-radius:14px;background:#fff;font-size:16px}
+.tabs{position:fixed;bottom:0;left:0;right:0;background:rgba(255,255,255,.86);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border-top:1px solid rgba(0,0,0,.08);z-index:20}.tabsin{max-width:560px;margin:auto;display:grid;grid-template-columns:repeat(4,1fr);padding:7px 10px calc(8px + env(safe-area-inset-bottom))}.tab{background:none;color:#85858b;padding:6px 4px;font-size:10px;min-height:48px}.tab.active{color:#111}.tab span{display:block;font-size:21px;margin-bottom:2px}
+.toast{position:fixed;left:50%;bottom:95px;transform:translateX(-50%);background:#111;color:#fff;padding:11px 15px;border-radius:14px;font-size:12px;opacity:0;pointer-events:none;transition:.25s;z-index:30}.toast.show{opacity:1}
+@media(max-width:360px){h1{font-size:30px}.card{padding:14px}.ring{width:100px;height:100px}}
+</style>
+</head>
+<body>
+<div class="app">
+<header><div class="kicker">Projeto Rio • Dudu</div><h1 id="title">Hoje</h1><div id="date" class="date"></div></header>
+<main id="content"></main>
+</div>
+<nav class="tabs"><div class="tabsin">
+<button class="tab active" data-page="home"><span>⌂</span>Hoje</button>
+<button class="tab" data-page="diet"><span>🥗</span>Dieta</button>
+<button class="tab" data-page="workout"><span>🏋️</span>Treino</button>
+<button class="tab" data-page="progress"><span>◉</span>Progresso</button>
+</div></nav>
+<div id="toast" class="toast"></div>
+<script>
+const START="2026-10-06", TRIP="2026-11-19", KEY="projetoRioDuduPremium";
+const goals={water:3500,protein:180,steps:9000,calories:2300};
+const inbody={weight:90.7,height:178,age:37,bodyFat:13.2,skeletal:45.7,bmr:2070,water:57.5,score:99};
+const history=[
+["04/12/25",89.3],["31/12/25",88.9],["05/02/26",90.7],["14/05/26",86.7],["11/06/26",90.5],["14/07/26",86.6],["06/10/26",90.7]
+];
+let state=JSON.parse(localStorage.getItem(KEY)||"{}");
+state.water=state.water||0;state.protein=state.protein||0;state.steps=state.steps||0;state.done=state.done||{};state.weights=state.weights||{"2026-10-06":90.7};state.actualDays=state.actualDays||{};
+function save(){localStorage.setItem(KEY,JSON.stringify(state))}
+function localDateKey(d=new Date()){return [d.getFullYear(),String(d.getMonth()+1).padStart(2,"0"),String(d.getDate()).padStart(2,"0")].join("-")}
+function parseDate(s){let [y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)}
+function fmt(d){return d.toLocaleDateString("pt-BR",{weekday:"long",day:"2-digit",month:"long"})}
+function daysLeft(){let n=Math.ceil((parseDate(TRIP)-new Date())/86400000);return Math.max(0,n)}
+function pct(v,max){return Math.min(100,Math.round((v/max)*100))}
+function toast(t){let x=document.getElementById("toast");x.textContent=t;x.classList.add("show");setTimeout(()=>x.classList.remove("show"),1400)}
+function toggle(id){let k=localDateKey()+":"+id;state.done[k]=!state.done[k];save();home()}
+function isDone(id){return !!state.done[localDateKey()+":"+id]}
+function add(type,n){state[type]=Math.min(type==="water"?5000:type==="protein"?250:20000,state[type]+n);save();home();toast(type==="water"?"Água registrada 💧":"Proteína registrada 💪")}
+function scoreToday(){
+ let a=[pct(state.water,goals.water),pct(state.protein,goals.protein),pct(state.steps,goals.steps),isDone("training")?100:0,isDone("calories")?100:0,isDone("sleep")?100:0];
+ return Math.round(a.reduce((x,y)=>x+y,0)/a.length);
+}
+function ring(p){return `<div class="ring" style="--pct:${p}%"><div><strong>${p}%</strong><small>do dia</small></div></div>`}
+function check(id,ico,t,sub){let d=isDone(id);return `<div class="item"><div class="ico">${ico}</div><div><strong>${t}</strong><small>${sub}</small></div><button class="check ${d?"done":""}" onclick="toggle('${id}')">${d?"✓":""}</button></div>`}
+function home(){
+ document.getElementById("title").textContent="Hoje";document.getElementById("date").textContent=fmt(new Date());
+ let s=scoreToday(), w=(state.water/1000).toFixed(1);
+ document.getElementById("content").innerHTML=`
+ <section class="section card"><div class="row"><div><div class="label">Consistência de hoje</div><div class="metric">${s}%</div><div class="submetric">${daysLeft()} dias até o Rio</div></div>${ring(s)}</div></section>
+ <section class="section grid">
+  <div class="card"><div class="label">Água</div><div class="metric">${w} L</div><div class="progress"><div class="bar" style="width:${pct(state.water,goals.water)}%"></div></div><button onclick="add('water',250)">+ 250 ml</button></div>
+  <div class="card"><div class="label">Proteína</div><div class="metric">${state.protein} g</div><div class="progress"><div class="bar" style="width:${pct(state.protein,goals.protein)}%"></div></div><button onclick="add('protein',25)">+ 25 g</button></div>
+ </section>
+ <section class="section card"><div class="row"><div><div class="label">Peso atual</div><div class="metric">90,7 kg</div><div class="submetric">InBody • 06/10/2026</div></div><span class="pill">Meta 87,5–88,5 kg</span></div></section>
+ <section class="section"><h2>Metas de hoje</h2>
+ ${check("whey1","🥤","Whey 1","Primeira dose • base do plano")}
+ ${check("whey2","🥤","Whey 2","Segunda dose • base do plano")}
+ ${check("training","🏋️","Treino","Sessão programada")}
+ ${check("cardio","🏃","Cardio","20–40 min conforme o dia")}
+ ${check("steps","🚶","Passos","Meta 8.000–10.000 • registre abaixo")}
+ ${check("calories","◉","Calorias","≈ 2.300 kcal")}
+ ${check("sleep","☾","Sono","Sono adequado")}
+ </section>
+ <section class="section card"><div class="row"><div><strong>Passos</strong><div class="note">${state.steps.toLocaleString("pt-BR")} / 9.000</div></div><button class="secondary" onclick="add('steps',1000)">+ 1.000</button></div><div class="progress"><div class="bar" style="width:${pct(state.steps,goals.steps)}%"></div></div></section>
+ <section class="section card"><strong>Foco</strong><p class="note">Secar preservando a massa muscular. O plano trabalha com 180 g de proteína, 3,0–3,5 L de água, 8–10 mil passos e musculação 5×/semana.</p></section>`;
+}
+const meals=[
+["🥚","Café da manhã","3 ovos + 2 fatias de pão + 1 banana + 1 dose de whey","30–35 g"],
+["🥤","Pré-treino","1 dose de whey + 1 banana + 30 g de aveia","25–30 g"],
+["🍚","Almoço","150–180 g de frango/patinho + 150 g arroz + 80–100 g feijão + vegetais","40–50 g"],
+["🥤","Lanche","1 fruta + 1 dose de whey","20–30 g"],
+["🍗","Jantar","150–180 g de proteína + 120–150 g arroz OU 250 g batata + vegetais","40–50 g"],
+["🥤","Ceia opcional","½–1 dose de whey ou 2 ovos, somente se faltar proteína","10–25 g"]
+];
+function diet(){
+ document.getElementById("title").textContent="Dieta";document.getElementById("date").textContent="≈ 2.300 kcal • 180 g proteína • 3–3,5 L água";
+ document.getElementById("content").innerHTML=`<section class="section grid"><div class="card"><div class="label">Proteína</div><div class="metric">180 g</div><div class="submetric">2 doses de whey como base</div></div><div class="card"><div class="label">Água</div><div class="metric">3–3,5 L</div><div class="submetric">mais conforme suor/calor</div></div></section>
+ <section class="section card">${meals.map(m=>`<div class="meal"><div class="ico">${m[0]}</div><div><strong>${m[1]}</strong><div class="note">${m[2]}</div><div class="pill" style="margin-top:6px">${m[3]} proteína</div></div></div>`).join("")}</section>
+ <section class="section card"><h2>Rotina de água</h2><div class="note">Ao acordar 400–500 ml · manhã 800–1.000 ml · treino 500–750 ml · tarde 700–900 ml · noite completar sem forçar volume perto de dormir.</div></section>
+ <section class="section card"><h2>Trocas inteligentes</h2><div class="note">O plano permite alternar ovos, feijão e whey quando você não quiser comer muita carne. Arroz pode ser trocado por batata, batata-doce, mandioca ou massa em porção equivalente.</div></section>`;
+}
+const workouts={
+seg:["Peito + tríceps",[["Supino inclinado","4 × 6–10","Banco + barra/halteres"],["Supino reto","3 × 8–10","Banco + barra/halteres"],["Crossover","3 × 12–15","Polia"],["Supino máquina","3 × 10–12","Máquina convergente"],["Tríceps corda","3 × 10–12","Polia alta"],["Tríceps francês","3 × 10–12","Halter/polia"],["Abdômen","3–4 séries","Máquina/cabo"],["Cardio","20 min","Caminhada inclinada/bike"]]],
+ter:["Costas + bíceps",[["Puxada alta","4 × 8–10","Polia"],["Remada baixa","3 × 8–10","Máquina/polia"],["Remada unilateral","3 × 10","Halter/máquina"],["Pulldown","3 × 12","Polia"],["Rosca direta","3 × 8–10","Barra"],["Rosca martelo","3 × 10–12","Halteres"],["Cardio","25 min","Caminhada/bike"]]],
+qua:["Pernas",[["Hack/agachamento","4 × 8–10","Hack/rack"],["Leg press","3 × 10–12","Leg press"],["Cadeira extensora","3 × 12–15","Máquina"],["Stiff","3 × 8–10","Barra/halteres"],["Mesa flexora","3 × 10–12","Máquina"],["Panturrilha","4 × 12–15","Máquina"],["Cardio","15–20 min","Leve"]]],
+qui:["Ombro + peito",[["Desenvolvimento","3 × 8–10","Máquina/halteres"],["Elevação lateral","5 × 12–15","Halteres/polia"],["Elevação posterior","4 × 12–15","Máquina/halteres"],["Supino inclinado","3 × 8–10","Banco + barra/halteres"],["Crossover","3 × 12–15","Polia"],["Elevação lateral na polia","3 × 12–15","Polia"],["Abdômen","10–15 min","Máquina/cabo"],["Cardio","20–25 min","Moderado"]]],
+sex:["Costas + braços",[["Puxada","3 × 8–10","Polia"],["Remada","3 × 8–10","Máquina/polia"],["Pullover","3 × 12","Máquina/polia"],["Rosca direta","3 × 10","Barra"],["Rosca martelo","3 × 12","Halteres"],["Tríceps testa","3 × 10","Barra/halteres"],["Tríceps corda","3 × 12","Polia"],["Abdômen","10–15 min","Máquina/cabo"],["Cardio","25–30 min","Moderado"]]]
+};
+function workout(){
+ let d=["dom","seg","ter","qua","qui","sex","sab"][new Date().getDay()],w=workouts[d]||["Recuperação ativa",[]];
+ document.getElementById("title").textContent="Treino";document.getElementById("date").textContent=d==="dom"||d==="sab"?"Recuperação ativa":"Hoje • "+w[0];
+ document.getElementById("content").innerHTML=`<section class="section card"><h2>${w[0]}</h2>${w[1].map(x=>`<div class="exercise"><b>${x[0]}</b><span>${x[1]}<br>${x[2]}</span></div>`).join("")}</section>
+ <section class="section card"><div class="statgrid"><div class="stat"><b>5×</b><span>musculação/semana</span></div><div class="stat"><b>20–40'</b><span>cardio</span></div><div class="stat"><b>8–10k</b><span>passos/dia</span></div></div><p class="note">Progressão: ao atingir o topo da faixa com técnica sólida, aumente a carga discretamente. Em geral, 1–2 repetições em reserva.</p></section>
+ <section class="section card"><h2>17–19/11</h2><div class="note"><b>17/11:</b> superior moderado + cardio leve. <b>18/11:</b> pump de peito/ombros/braços 30–40 min. <b>19/11:</b> pump opcional 10–15 min, sem falha.</div></section>`;
+}
+function makePoints(){
+ let arr=[];let d=parseDate(START);let end=parseDate(TRIP);
+ let total=Math.round((end-d)/86400000);
+ for(let i=0;i<=total;i++){let date=new Date(d);date.setDate(d.getDate()+i);let k=localDateKey(date);
+   let phase=i/total;let projected=90.7-(3.0*phase);let wave=Math.sin(i*1.7)*.12;
+   let adherence=Math.round(Math.min(98,74+i*0.7+Math.sin(i*.8)*5));
+   if(state.actualDays[k]){projected=state.actualDays[k].weight;adherence=state.actualDays[k].score}
+   arr.push({k,date,weight:+(projected+wave).toFixed(1),score:adherence});
+ }return arr;
+}
+function svgChart(points){
+ let W=520,H=180,pad={l:34,r:10,t:12,b:28},min=85,max=92;
+ const x=i=>pad.l+i*(W-pad.l-pad.r)/(points.length-1),y=v=>pad.t+(max-v)*(H-pad.t-pad.b)/(max-min);
+ let path=points.map((p,i)=>(i?"L":"M")+x(i).toFixed(1)+" "+y(p.weight).toFixed(1)).join(" ");
+ let dots=[0,Math.floor(points.length/2),points.length-1].map(i=>`<circle class="dot" cx="${x(i)}" cy="${y(points[i].weight)}" r="3.5"></circle>`).join("");
+ return `<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Projeção de peso até 19 de novembro"><line class="gridline" x1="${pad.l}" x2="${W-pad.r}" y1="${y(88)}" y2="${y(88)}"/><line class="gridline" x1="${pad.l}" x2="${W-pad.r}" y1="${y(90)}" y2="${y(90)}"/><path class="line" d="${path}"/>${dots}<text x="2" y="${y(92)+4}">92</text><text x="2" y="${y(90)+4}">90</text><text x="2" y="${y(88)+4}">88</text><text x="${pad.l}" y="${H-6}">06/10</text><text x="${W/2-20}" y="${H-6}">28/10</text><text x="${W-54}" y="${H-6}">19/11</text></svg>`;
+}
+function progress(){
+ let points=makePoints(), todayScore=scoreToday(), delta=(90.7-points[points.length-1].weight).toFixed(1);
+ let hist=history.map(h=>`<div class="item"><div class="ico">⚖️</div><div><strong>${h[0]}</strong><small>${h[1].toFixed(1).replace(".",",")} kg</small></div></div>`).join("");
+ let days=points.slice(0,Math.min(points.length,14)).map((p,i)=>`<div class="day ${i===0?"active":""}"><span>${String(p.date.getDate()).padStart(2,"0")}</span><b>${p.score}%</b></div>`).join("");
+ document.getElementById("title").textContent="Progresso";document.getElementById("date").textContent="Real + projeção • 06/10 → 19/11";
+ document.getElementById("content").innerHTML=`<section class="section card"><div class="row"><div><div class="label">Consistência hoje</div><div class="metric">${todayScore}%</div><div class="submetric">Meta diária integrada</div></div>${ring(todayScore)}</div></section>
+ <section class="section card"><div class="row"><div><h2 style="margin-bottom:3px">Evolução de peso</h2><div class="note">InBody atual: 90,7 kg → faixa-meta 87,5–88,5 kg</div></div><span class="pill">−${delta.replace(".",",")} kg*</span></div><div class="chart">${svgChart(points)}</div><p class="note">*Projeção de simulação. Os valores reais registrados no app substituem a projeção.</p></section>
+ <section class="section card"><h2>Sequência</h2><div class="timeline">${days}</div><p class="note">O objetivo é aumentar a consistência dia após dia — não buscar 100% perfeito todos os dias.</p></section>
+ <section class="section card"><h2>Seu ponto de partida</h2><div class="statgrid"><div class="stat"><b>90,7</b><span>peso kg</span></div><div class="stat"><b>13,2%</b><span>gordura</span></div><div class="stat"><b>45,7</b><span>massa muscular kg</span></div><div class="stat"><b>2.070</b><span>metabolismo basal</span></div><div class="stat"><b>57,5</b><span>água corporal L</span></div><div class="stat"><b>99</b><span>InBody / 100</span></div></div></section>
+ <section class="section card"><h2>Histórico InBody</h2>${hist}</section>
+ <section class="section card"><h2>Registrar peso real</h2><div class="row"><input id="realWeight" inputmode="decimal" placeholder="Ex.: 89,8"><button onclick="saveRealWeight()">Salvar</button></div><p class="note">A leitura de 06/10/2026 é 90,7 kg. Registre novas medições para substituir a projeção daquele dia.</p></section>`;
+}
+function saveRealWeight(){let v=parseFloat(document.getElementById("realWeight").value.replace(",","."));if(!Number.isFinite(v)||v<40||v>200){toast("Digite um peso válido");return}let k=localDateKey();state.actualDays[k]={weight:v,score:scoreToday()};state.weights[k]=v;save();progress();toast("Peso real salvo ✓")}
+function show(p){document.querySelectorAll(".tab").forEach(x=>x.classList.toggle("active",x.dataset.page===p));({home,diet,workout,progress}[p])()}
+document.querySelectorAll(".tab").forEach(x=>x.addEventListener("click",()=>show(x.dataset.page)));
+show("home");
+</script>
+</body>
+</html>
